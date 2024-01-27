@@ -4,7 +4,7 @@ LABEL maintainer="Julio Gutierrez julio.guti+nordlynx@pm.me"
 HEALTHCHECK CMD [ $(( $(date -u +%s) - $(wg show wg0 latest-handshakes | awk '{print $2}') )) -le 120 ] || exit 1
 
 COPY /root /
-RUN apk add --no-cache -U wireguard-tools curl=7.77 jq patch strace ulogd && \
+RUN apk add --no-cache -U wireguard-tools curl=7.77.0-r1 jq patch strace ulogd && \
 	patch --verbose -d / -p 0 -i /patch/wg-quick.patch && \
     apk del --purge patch && \
 	rm -rf /tmp/* /patch
